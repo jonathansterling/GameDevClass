@@ -112,7 +112,7 @@ GameObject:
   - 136: {fileID: 136000011222472936}
   - 114: {fileID: 114000011899793344}
   m_Layer: 8
-  m_Name: LaserTurret_BACKUP_15044
+  m_Name: LaserTurret
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
