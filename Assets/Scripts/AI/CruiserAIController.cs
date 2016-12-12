@@ -26,10 +26,10 @@ public class CruiserAIController : MonoBehaviour {
     }
 	
 	void Update () {
-	    if (target == null && Time.time > nextTargetAcquireTime)
+	    if ((target == null || !target.activeInHierarchy) && Time.time > nextTargetAcquireTime)
             AcquireNewTarget();
 
-        if (target != null & goToPoints == null)
+        if (target != null && target.activeInHierarchy && (goToPoints == null || goToPoints.Length == 0))
             wc.FirePrimaryWeapon();
     }
 
@@ -42,9 +42,12 @@ public class CruiserAIController : MonoBehaviour {
 
     void AcquireNewTarget()
     {
-        if (goToPoints != null)
+        if (goToPoints != null && goToPoints.Length > 0)
         {
-            target = goToPoints[WayPointNumber];
+            if (WayPointNumber < goToPoints.Length)
+            {
+                target = goToPoints[WayPointNumber];
+            }
         }
         else {
             nextTargetAcquireTime = Time.time + targetAcquireInterval;
@@ -62,13 +65,13 @@ public class CruiserAIController : MonoBehaviour {
 
     void AdjustThrottle()
     {
-        if (target == null)
+        if (target == null || !target.activeInHierarchy)
         {
             if (currentThrottle > 0)
                 currentThrottle--;
             return;
         }
-        if (goToPoints != null)
+        if (goToPoints != null && goToPoints.Length > 0)
         {
             if ((target.transform.position - transform.position).magnitude > 30)
             {
